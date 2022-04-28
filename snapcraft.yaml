@@ -1,0 +1,74 @@
+name: snapclient
+version: "0.26"
+summary: Snapcast
+description: |
+  Snapcast is a multiroom client-server
+  audio player, where all clients are
+  time synchronized with the server to
+  play perfectly synced audio.
+
+confinement: classic
+base: core20
+
+parts:
+
+  boost:
+    plugin: dump
+    source: https://sourceforge.net/projects/boost/files/boost/1.74.0/boost_1_74_0.tar.bz2
+    source-checksum: sha1/f82c0d8685b4d0e3971e8e2a8f9ef1551412c125
+    stage:
+      - boost/
+    prime:
+      - -*
+  
+  snapclient:
+    plugin: cmake
+    after: [boost]
+    source: https://github.com/badaix/snapcast.git
+    # source-subdir: client
+    build-packages:
+      - g++
+      - make
+      - build-essential
+      - pkg-config
+      - libasound2-dev
+      - libpulse-dev
+      - libvorbis-dev
+      - libflac-dev
+      - libopus-dev
+      - libavahi-client-dev
+      - libasio-dev
+      - libsoxr-dev
+      - alsa-utils
+      - avahi-daemon
+      - libexpat1-dev
+      - libboost-system-dev
+      - libboost-thread-dev
+      - libboost-program-options-dev
+      - libboost-test-dev
+    stage-packages:
+      - libavahi-client3
+      - libavahi-common3
+      - libgomp1
+      - libsoxr0
+      - libasound2
+      - libasyncns0
+      - libflac8
+      - libogg0
+      - libopus0
+      - libpulse0
+      - libsndfile1
+      - libvorbis0a
+      - libvorbisenc2
+      - libxau6
+      - libxcb1
+      - libxdmcp6
+
+apps:
+  snapclient:
+    command: usr/local/bin/snapclient
+    environment:
+      "LD_LIBRARY_PATH": "$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio"
+    plugs:
+      - audio-playback
+      - alsa

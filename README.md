@@ -1,1 +1,1 @@
-# snapcast-snap
+# Snapclient Snap

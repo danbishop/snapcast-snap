@@ -7,7 +7,7 @@ description: |
   time synchronized with the server to
   play perfectly synced audio.
 
-confinement: classic
+confinement: strict
 base: core20
 
 parts:
@@ -20,12 +20,12 @@ parts:
       - boost/
     prime:
       - -*
-  
+
   snapclient:
     plugin: cmake
     after: [boost]
     source: https://github.com/badaix/snapcast.git
-    # source-subdir: client
+    #source-subdir: client
     build-packages:
       - g++
       - make
@@ -63,6 +63,14 @@ parts:
       - libxau6
       - libxcb1
       - libxdmcp6
+      - libasound2-data
+      - libasound2-plugins
+      
+layout:
+  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/alsa-lib:
+    bind: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/alsa-lib
+  /usr/share/alsa:
+    bind: $SNAP/usr/share/alsa
 
 apps:
   snapclient:
@@ -72,3 +80,5 @@ apps:
     plugs:
       - audio-playback
       - alsa
+      - avahi-control
+      - network

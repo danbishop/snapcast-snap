@@ -9,17 +9,18 @@ description: |
 
 confinement: strict
 base: core20
+grade: stable
 
 parts:
 
   boost:
     plugin: dump
-    source: https://sourceforge.net/projects/boost/files/boost/1.74.0/boost_1_74_0.tar.bz2
-    source-checksum: sha1/f82c0d8685b4d0e3971e8e2a8f9ef1551412c125
+    source: https://sourceforge.net/projects/boost/files/boost/1.79.0/boost_1_79_0.tar.bz2
+    source-checksum: sha1/31209dcff292bd6a64e5e08ceb3ce44a33615dc0
     stage:
       - boost/
-    prime:
-      - -*
+    # prime:
+    #   - -*
 
   snapclient:
     plugin: cmake
@@ -39,32 +40,25 @@ parts:
       - libavahi-client-dev
       - libasio-dev
       - libsoxr-dev
-      - alsa-utils
-      - avahi-daemon
+      # - alsa-utils
+      # - avahi-daemon
       - libexpat1-dev
-      - libboost-system-dev
-      - libboost-thread-dev
-      - libboost-program-options-dev
-      - libboost-test-dev
+      # - libboost-system-dev
+      # - libboost-thread-dev
+      # - libboost-program-options-dev
+      # - libboost-test-dev
     stage-packages:
-      - libavahi-client3
-      - libavahi-common3
-      - libgomp1
-      - libsoxr0
       - libasound2
-      - libasyncns0
-      - libflac8
-      - libogg0
-      - libopus0
+      - libavahi-client3 
+      - libavahi-common3
+      - libflac8 
+      - libgcc1 
+      - libogg0 
+      - libopus0 
       - libpulse0
-      - libsndfile1
-      - libvorbis0a
-      - libvorbisenc2
-      - libxau6
-      - libxcb1
-      - libxdmcp6
-      - libasound2-data
-      - libasound2-plugins
+      - libsoxr0 
+      - libstdc++6
+      - libvorbisidec1 
       
 layout:
   /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/alsa-lib:
